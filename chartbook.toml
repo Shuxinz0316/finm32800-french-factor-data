@@ -1,0 +1,10 @@
+[project]
+name = "Ken French monthly three-factor data"
+description = "Fama-French three-factor monthly SMB and HML through June 2026."
+
+[dataframes.french_factors]
+name = "Ken French monthly SMB and HML"
+description = "Monthly factor returns as decimals, from the official three-factor file."
+path = "french_factors.csv"
+date_col = "date"
+docs = "Official monthly SMB and HML factor returns from July 2025 to June 2026."
