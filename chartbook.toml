@@ -1,3 +1,4 @@
+# Declares the official-factor snapshot consumed by the class report.
 [project]
 name = "Ken French monthly three-factor data"
 description = "Fama-French three-factor monthly SMB and HML through June 2026."

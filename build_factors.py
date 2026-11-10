@@ -1,4 +1,8 @@
-"""Download French's three-factor monthly series and freeze a defined window."""
+"""Build the Ken French factor snapshot for the class report.
+
+Download the official three-factor file, select the fixed review period, and
+save SMB and HML as monthly decimal returns for the ChartBook data manifest.
+"""
 
 from io import BytesIO, StringIO
 from pathlib import Path
@@ -20,7 +24,7 @@ def main():
     with ZipFile(BytesIO(response.content)) as archive:
         source = archive.read(archive.namelist()[0]).decode("utf-8-sig")
     lines = source.splitlines()
-    # 法国教授的数据同时包含月度与年度表；只选六位年月的月度行。
+    # The archive contains monthly and annual tables; six-digit dates identify months.
     rows = [
         line
         for line in lines
@@ -31,7 +35,7 @@ def main():
         frame.pop("month").astype(str), format="%Y%m"
     ) + pd.offsets.MonthEnd(0)
     frame = frame.loc[frame.date.between(START_DATE, END_DATE), ["date", "SMB", "HML"]].copy()
-    # 原始文件单位为百分数，除以 100 后与 HW1 的小数收益率一致。
+    # Convert percentages to decimal returns to match the HW1 factor series.
     frame[["SMB", "HML"]] = frame[["SMB", "HML"]].apply(pd.to_numeric) / 100
     expected = pd.date_range(START_DATE, END_DATE, freq="ME")
     if frame.date.duplicated().any() or not frame.date.reset_index(drop=True).equals(
