@@ -14,8 +14,8 @@ import requests
 URL = (
     "https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/ftp/F-F_Research_Data_Factors_CSV.zip"
 )
-START_DATE = "2025-07-01"
-END_DATE = "2026-06-30"
+START_DATE = "2025-10-01"
+END_DATE = "2026-09-30"
 
 
 def main():
